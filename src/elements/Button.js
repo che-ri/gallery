@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = ({ children, bg, color, width, height, padding }) => {
+const Button = ({ children, _onClick, bg, color, width, height, padding }) => {
     const styles = { bg, color, width, height, padding };
-    return <ElButton {...styles}>{children}</ElButton>;
+    return (
+        <ElButton onClick={_onClick} {...styles}>
+            {children}
+        </ElButton>
+    );
 };
 
 Button.defaultProps = {

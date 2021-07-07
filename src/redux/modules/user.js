@@ -6,8 +6,8 @@ const SET_USER = "SET_USER";
 const LOG_OUT = "LOG_OUT";
 
 //ActionCreator
-const setUser = createAction(SET_USER, user => ({ user }));
-const logOut = createAction(LOG_OUT, user => ({ user }));
+const setUser = createAction(SET_USER, (user) => ({ user }));
+const logOut = createAction(LOG_OUT, (user) => ({ user }));
 
 //initialState
 const initialState = {
@@ -19,10 +19,13 @@ const initialState = {
 export default handleActions(
     {
         [SET_USER]: (state, action) => {
-            produce(state, draft => {
+            produce(state, (draft) => {
                 draft.user = action.payload.user;
             });
         },
     },
     initialState
 );
+
+const actionsCreators = { setUser };
+export { actionsCreators };
