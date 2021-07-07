@@ -1,8 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 
-import Input from "../elements/Input";
-import { Grid } from "../elements";
+import { Grid, Input } from "../elements";
 
 const Header = () => {
     return (
