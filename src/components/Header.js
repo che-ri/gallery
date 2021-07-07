@@ -3,6 +3,8 @@ import React from "react";
 import { Grid, Input } from "../elements";
 
 const Header = () => {
+    const [is_login, setIsLogin] = React.useState(false);
+
     return (
         <>
             <Grid is_flex>

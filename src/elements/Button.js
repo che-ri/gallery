@@ -12,20 +12,19 @@ const Button = ({ children, _onClick, bg, color, width, height, padding }) => {
 
 Button.defaultProps = {
     children: null,
-
     bg: "#fff",
     color: "#121212",
-    width: false,
-    height: false,
+    width: "300px",
+    height: "300px",
     padding: "10px",
 };
 
 const ElButton = styled.button`
-    background-color: ${(props) => props.bg};
-    ${(props) => (props.width ? `width:${props.width};` : "")};
-    ${(props) => (props.height ? `height: ${props.height};` : "")};
-    ${(props) => (props.color ? `color:${props.color};` : "")}
-    padding: ${(props) => props.padding};
+    background-color: ${props => props.bg};
+    ${props => (props.width ? `width:${props.width};` : "")};
+    ${props => (props.height ? `height: ${props.height};` : "")};
+    ${props => (props.color ? `color:${props.color};` : "")}
+    padding: ${props => props.padding};
 `;
 
 export default Button;
