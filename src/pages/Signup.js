@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Text, Input, Button } from "../elements";
-import { actionsCreators as userActions } from "../redux/modules/user";
+import { actionCreators as userActions } from "../redux/modules/user";
 import { useSelector, useDispatch } from "react-redux";
 const Signup = () => {
     const dispatch = useDispatch();
@@ -8,13 +8,9 @@ const Signup = () => {
     const [pwd, setPwd] = useState("");
     const [pwd_check, setPwdCheck] = useState("");
     const [user_name, setUserName] = useState("");
-    const User = useSelector(state => state);
-    console.log(User);
     const signup = () => {
         if (pwd === pwd_check) {
-            dispatch(
-                userActions.setUser({ id: id, pwd: pwd, user_name: user_name })
-            );
+            dispatch(userActions.signupFB(id, pwd, user_name));
         }
     };
 

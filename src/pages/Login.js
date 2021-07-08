@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Grid, Input, Button, Text } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Login = () => {
     // console.log(useSelector(state => state));
     const [id, setId] = useState("");
     const [pwd, setPwd] = useState("");
     const dispatch = useDispatch();
-    const login = (id, pwd) => {};
+    const login = () => {
+        dispatch(userActions.loginFB(id, pwd));
+    };
 
     return (
         <>
@@ -26,7 +29,7 @@ const Login = () => {
                 />
             </Grid>
             <Grid>
-                <Button>로그인</Button>
+                <Button _onClick={login}>로그인</Button>
             </Grid>
         </>
     );
