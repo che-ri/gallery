@@ -61,25 +61,33 @@ const loginFB = (id, pwd) => {
         auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
             .then(() => {
                 //signIn하기
-                auth.signInWithEmailAndPassword(id, pwd).then(
-                    //기존 사용자 로그인
-                    user =>
-                        dispatch(
-                            setUser({
-                                //회원가입할때 displayName을 직접 바꿨으니, 로그인할땐 서버에 있는 정보 가져오면 되겠죠?
-                                user_name: user.user.displayName,
-                                id: id,
-                                user_profile: "",
-                                uid: user.user.uid,
-                            })
-                        )
-                );
-                history.push("/");
+                auth.signInWithEmailAndPassword(id, pwd)
+                    .then(
+                        //기존 사용자 로그인
+                        user => {
+                            history.push("/");
+                            return dispatch(
+                                setUser({
+                                    //회원가입할때 displayName을 직접 바꿨으니, 로그인할땐 서버에 있는 정보 가져오면 되겠죠?
+                                    user_name: user.user.displayName,
+                                    id: id,
+                                    user_profile: "",
+                                    uid: user.user.uid,
+                                })
+                            );
+                        }
+                    )
+                    .catch(error => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log(errorCode, errorMessage);
+                        window.alert("일치하는 사용자가 없습니다!");
+                    });
             })
             .catch(error => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                console.log(errorCode, errorMessage);
+                window.alert("일치하는 사용자가 없습니다!");
             });
     };
 };
@@ -107,7 +115,7 @@ const loginCheckFB = () => {
     };
 };
 
-const logOutFB = () => {
+const logoutFB = () => {
     //로그아웃을 하면 저장되어있는 세션스토리지의 FB정보도 삭제시킵니다.
     return function (dispatch, getState, { history }) {
         auth.setPersistence(firebase.auth.Auth.Persistence.NONE)
@@ -138,5 +146,5 @@ export default handleActions(
     initialState
 );
 
-const actionCreators = { signupFB, loginFB, loginCheckFB, logOutFB };
+const actionCreators = { signupFB, loginFB, loginCheckFB, logoutFB };
 export { actionCreators };

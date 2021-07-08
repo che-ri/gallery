@@ -11,7 +11,7 @@ import {
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(actionCreators.loginCheckFB);
+        dispatch(actionCreators.loginCheckFB());
     }, []);
     return (
         <>

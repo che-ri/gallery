@@ -29,7 +29,12 @@ const Input = ({
             />
         );
     return (
-        <ElInput placeholder={placeholder} onChange={_onChange} {...styles} />
+        <ElInput
+            type={type}
+            placeholder={placeholder}
+            onChange={_onChange}
+            {...styles}
+        />
     );
 };
 
