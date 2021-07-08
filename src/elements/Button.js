@@ -15,16 +15,17 @@ Button.defaultProps = {
     bg: "#fff",
     color: "#121212",
     width: "300px",
-    height: "300px",
+    height: "false",
     padding: "10px",
 };
 
 const ElButton = styled.button`
     background-color: ${props => props.bg};
     ${props => (props.width ? `width:${props.width};` : "")};
-    ${props => (props.height ? `height: ${props.height};` : "")};
+    ${props => (props.height ? `height: ${props.height};` : undefined)}
     ${props => (props.color ? `color:${props.color};` : "")}
     padding: ${props => props.padding};
+    text-align: center;
 `;
 
 export default Button;

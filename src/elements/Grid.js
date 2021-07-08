@@ -23,21 +23,21 @@ Grid.defaultProps = {
     is_flex_column: false,
     margin: false,
     padding: false,
-    width: "100%",
+    width: undefined,
 };
 
 const StyledGrid = styled.div`
-    ${(props) =>
+    ${props =>
         props.is_flex
             ? `display:flex; justify-content:space-between; align-items:center;`
             : ""}
-    ${(props) =>
+    ${props =>
         props.is_flex_column
             ? `display:flex; flex-direction:column; justify-content:center; `
             : ""}
-    ${(props) => (props.margin ? `margin:${props.margin};` : "")}
-    ${(props) => (props.padding ? `margin:${props.padding};` : "")}
-    width: ${(props) => props.width}
+    ${props => (props.margin ? `margin:${props.margin};` : "")}
+    ${props => (props.padding ? `margin:${props.padding};` : "")}
+    ${props => (props.width ? `width:${props.width}` : undefined)}
 `;
 
 export default Grid;

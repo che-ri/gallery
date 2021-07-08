@@ -8,6 +8,7 @@ const Input = ({
     placeholder,
     to,
     _onChange,
+    _onClick,
     width,
     border,
     padding,
@@ -15,7 +16,7 @@ const Input = ({
     const styles = { width, border, padding };
     if (type === "Link")
         return (
-            <ElLink to={to} {...styles}>
+            <ElLink to={to} onClick={_onClick} {...styles}>
                 {text}
             </ElLink>
         );
@@ -41,24 +42,26 @@ Input.defaultProps = {
     border: "1px solid #121212",
     padding: "10px",
     _onChange: () => {},
+    _onClick: () => {},
 };
 
 const ElInput = styled.input`
-    width: ${(props) => props.width};
-    border: ${(props) => props.border};
-    padding: ${(props) => props.padding};
+    width: ${props => props.width};
+    border: ${props => props.border};
+    padding: ${props => props.padding};
 `;
 
 const ElLink = styled(Link)`
-    width: ${(props) => props.width};
-    border: ${(props) => props.border};
-    padding: ${(props) => props.padding};
+    width: ${props => props.width};
+    border: ${props => props.border};
+    padding: ${props => props.padding};
+    text-align: center;
 `;
 
 const Textarea = styled.textarea`
-    width: ${(props) => props.width};
-    border: ${(props) => props.border};
-    padding: ${(props) => props.padding};
+    width: ${props => props.width};
+    border: ${props => props.border};
+    padding: ${props => props.padding};
 `;
 
 export default Input;
