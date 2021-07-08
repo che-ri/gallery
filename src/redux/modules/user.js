@@ -57,8 +57,8 @@ const signupFB = (id, pwd, user_name) => {
 
 const loginFB = (id, pwd) => {
     return function (dispatch, getState, { history }) {
-        //세션스토리지에 저장
-        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION) //세션에 저장
+        //세션스토리지에 FB정보를 저장합니다.
+        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
             .then(() => {
                 //signIn하기
                 auth.signInWithEmailAndPassword(id, pwd).then(
@@ -84,27 +84,41 @@ const loginFB = (id, pwd) => {
     };
 };
 
-const loginCheckFB = (dispatch, getState, { history }) => {
-    auth.onAuthStateChanged(user => {
-        //유저정보를 확인합니다.
-        if (user) {
-            //세션스토리지에 유저정보가 남아있으면 계속 리덕스에 유저정보를 주입합니다.
-            dispatch(
-                setUser({
-                    user_name: user.displayName,
-                    id: user.email,
-                    user_profile: "",
-                    uid: user.uid,
-                })
-            );
-        } else {
-            //유저정보가 없으면 로그아웃합니다.
-            dispatch(logOut());
-            history.push("/login");
-        }
-    });
+const loginCheckFB = () => {
+    return function (dispatch, getState, { history }) {
+        auth.onAuthStateChanged(user => {
+            //현재 로그인한 사용자 가져오기
+            if (user) {
+                //로그인한 사용자가 있으면 리덕스스토어에 계속 유저데이터주입
+                dispatch(
+                    setUser({
+                        user_name: user.displayName,
+                        id: user.email,
+                        user_profile: "",
+                        uid: user.uid,
+                    })
+                );
+            } else {
+                //유저정보가 없으면 로그아웃합니다.
+                dispatch(logOut());
+                history.push("/login");
+            }
+        });
+    };
 };
 
+const logOutFB = () => {
+    //로그아웃을 하면 저장되어있는 세션스토리지의 FB정보도 삭제시킵니다.
+    return function (dispatch, getState, { history }) {
+        auth.setPersistence(firebase.auth.Auth.Persistence.NONE)
+            .then(() => dispatch(logOut()))
+            .catch(error => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
+    };
+};
 //reducer
 export default handleActions(
     {
@@ -124,5 +138,5 @@ export default handleActions(
     initialState
 );
 
-const actionCreators = { signupFB, loginFB, loginCheckFB, logOut };
+const actionCreators = { signupFB, loginFB, loginCheckFB, logOutFB };
 export { actionCreators };
